@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImagePreviewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Gilroy';
+        }
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+        .main{
+            height: 100%;
+            padding: 20px;
+        }
+        .preview{
+            height: 400px;
+            width: 300px;
+            margin-top: 30px;
+        }
+        img{
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+        }
+        .details{
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <input type="file" name="file">
+
+        <div class="details">
+
+        </div>
+        <div class="preview">
+
+        </div>
+    </div>
+    <script src="App.js"></script>
+</body>
+</html>
