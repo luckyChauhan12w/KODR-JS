@@ -1,51 +1,111 @@
 let form = document.querySelector('form')
 
-let title = document.querySelector('#title')
-let url = document.querySelector('#url')
+let taskInp = document.querySelector('#task')
+let date = document.querySelector('#date')
+let checkbox = document.querySelector('#checkbox')
 
-let bookmark = localStorage.getItem('bookmarks') ? JSON.parse(localStorage.getItem('bookmarks')) : []
+let taskList = document.querySelector('.taskList')
+
+let filter = document.querySelector('#filter')
+
+let allTask = []
+
+function addTaskInArray() {
+
+    allTask.push(
+        {
+            taskInp: taskInp.value,
+            status: checkbox.checked ? "Completed" : "Pending",
+            date: date.value
+        }
+    )
+
+    return 'completed'
+
+}
+
+function renderAllTask() {
+
+    taskList.innerHTML = ''
+
+    allTask.forEach((e) => {
+
+        let taskDiv = document.createElement('div')
+        taskDiv.classList.add('task')
+
+        let h1 = document.createElement('h1')
+        h1.textContent = e.taskInp
+        let isCompleted = document.createElement('p')
+        isCompleted.textContent = e.status
+        let date = document.createElement('p')
+        date.textContent = e.date
+
+        taskDiv.append(h1, isCompleted, date)
+
+        taskList.append(taskDiv)
+    })
+}
+
+function filterPastTask(today){
+
+     let filteredPastData = allTask.filter(e => today > new Date(`${e.date}`))
+
+        taskList.innerHTML = ''
+
+        filteredPastData.forEach((e) => {
+
+            let taskDiv = document.createElement('div')
+            taskDiv.classList.add('task')
+
+            let h1 = document.createElement('h1')
+            h1.textContent = e.taskInp
+            let isCompleted = document.createElement('p')
+            isCompleted.textContent = e.status
+            let date = document.createElement('p')
+            date.textContent = e.date
+
+            taskDiv.append(h1, isCompleted, date)
+
+            taskList.append(taskDiv)
+        })
+}
+
+function filterUpcommingTask(today){
+
+     let filteredPastData = allTask.filter(e => today <= new Date(`${e.date}`))
+
+        taskList.innerHTML = ''
+
+        filteredPastData.forEach((e) => {
+
+            let taskDiv = document.createElement('div')
+            taskDiv.classList.add('task')
+
+            let h1 = document.createElement('h1')
+            h1.textContent = e.taskInp
+            let isCompleted = document.createElement('p')
+            isCompleted.textContent = e.status
+            let date = document.createElement('p')
+            date.textContent = e.date
+
+            taskDiv.append(h1, isCompleted, date)
+
+            taskList.append(taskDiv)
+        })
+}
+
+filter.addEventListener('change', (dets) => {
+
+    let todayDate = new Date()
+
+    if (filter.value == 'all') renderAllTask()
+    if (filter.value == 'past') filterPastTask(todayDate)
+    if (filter.value == 'upcomming') filterUpcommingTask(todayDate)
+})
 
 form.addEventListener('submit', (dets) => {
     dets.preventDefault()
-
-    let inpValue = title.value
-    let urlValue = url.value
-
-    // validate email 
-
-    if (urlValue.startsWith("http")) {
-        const obj = {
-            title: inpValue,
-            url: urlValue
-        }
-
-        bookmark.push(obj)
-
-        localStorage.setItem("bookmarks", JSON.stringify(bookmark))
-
-        location.reload();
-
-    }
-    else console.error('invalid link');
+    addTaskInArray()
+    renderAllTask()
 
 })
-
-
-let savedBookmarks = JSON.parse(localStorage.getItem('bookmarks'))
-
-savedBookmarks.forEach(e => {
-
-    let a = document.createElement('a')
-    a.href = e.url
-    a.textContent = e.title
-    a.target = '_blank'
-
-    let li = document.createElement('li')
-    li.append(a)
-
-    document.querySelector('ul').append(li)
-    
-});
-
-
-

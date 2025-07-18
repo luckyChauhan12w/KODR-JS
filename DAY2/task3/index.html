@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport"
               content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>TaskTracker</title>
         <style>
             * {
                 margin: 0;
@@ -16,28 +16,41 @@
             html, body {
                 height: 100%;
                 width: 100%;
-                background-color: #000;
-                color: #fff;
+            }
+            .main{
                 padding: 20px;
             }
-
         </style>
     </head>
 
     <body>
-        <form action="">
-            <input type="text"
-                   name=""
-                   id="title"
-                   placeholder="Title">
-            <input type="text"
-                   name=""
-                   id="url"
-                   placeholder="Url">
-            <button>Save</button>
-        </form>
-        <ul>
-        </ul>
+        <div class="main">
+            <form action="">
+                <input type="text"
+                       id="task"
+                       placeholder="Add Task">
+                <input type="date"
+                       id="date"
+                       placeholder="Add Task">
+                <input type="checkbox" name="checkbox" id="checkbox"> <label for="checkbox">Completed</label>
+
+                <button>Add Task</button>
+            </form>
+            <br>
+            <hr>
+            <br>
+            <select name="" id="filter">
+                <option value="all">All</option>
+                <option value="past">past</option>
+                <option value="upcomming">upcomming</option>
+            </select>
+            <br>
+            <div class="taskList">
+
+            </div>
+        </div>
+
+
         <script src="App.js"></script>
     </body>
 
